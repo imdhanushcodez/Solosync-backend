@@ -2,6 +2,7 @@ package com.dhanush.SoloSync.Configuration;
 
 import com.dhanush.SoloSync.Service.AppUserDetailsService;
 import jakarta.servlet.Filter;
+import org.springframework.http.HttpMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,7 +41,10 @@ public class SecurityConfiguration {
         httpSecurity.cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
-                        req.requestMatchers("/status","/register","/activate","/login")
+                        req
+                                .requestMatchers(HttpMethod.OPTIONS, "/**")
+                                .permitAll()
+                                 .requestMatchers("/status","/register","/activate","/login")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated())
@@ -61,7 +65,8 @@ public class SecurityConfiguration {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:5173"));       // React app origin
+        config.setAllowedOrigins(List.of(
+                "http://localhost:5173","https://solosysnc.netlify.app"));       // React app origin
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization","Content-Type","Accept"));                           // allow all headers, including Authorization
         config.setAllowCredentials(true);                                 // enable cookies/auth headers
