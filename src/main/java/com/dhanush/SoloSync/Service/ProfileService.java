@@ -42,7 +42,7 @@ public class ProfileService {
         //SAVING THE ENTITY INTO DB
         newEntity = profileEntityRepo.save(newEntity);
         //Activation link creation
-        String activationLink = "http://solosync.us-east-1.elasticbeanstalk.com/api/v1.0/activate?token="+newEntity.getActivationToken();
+        String activationLink = "https://solosync-backend.onrender.com/api/v1.0/activate?token="+newEntity.getActivationToken();
         String subject = "Active your SoloSync account";
         String body = "Check on the following link to activate your account: "+activationLink;
         //Sending Email
