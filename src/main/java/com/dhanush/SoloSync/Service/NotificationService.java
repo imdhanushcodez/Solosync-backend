@@ -27,7 +27,7 @@ public class NotificationService {
     @Value("${solosync.frontend.url}")
     String frontendUrl;
 
-    @Scheduled(cron = "0 0 22 * * *",zone = "IST")
+    //@Scheduled(cron = "0 0 22 * * *",zone = "IST")
     public void sendDailyIncomeExpenseReminder(){
         log.info("Job started: sendDailyIncomeExpenseReminder()");
         List<ProfileEntity> profiles = profileEntityRepo.findAll();
@@ -42,7 +42,7 @@ public class NotificationService {
         log.info("Job completed: SendDailyIncomeExpenseReminder()");
     }
 
-    @Scheduled(cron = "0 0 23 * * *",zone = "IST")
+    //@Scheduled(cron = "0 0 23 * * *",zone = "IST")
     public void sendDailyIncomeExpenseReport(){
         log.info("Job started: SendDailyIncomeExpenseReport()");
         List<ProfileEntity> profiles = profileEntityRepo.findAll();
